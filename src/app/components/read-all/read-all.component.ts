@@ -1,29 +1,43 @@
 import { Component, OnInit } from '@angular/core';
 import { tidy } from 'src/app/models/tidy';
+import { TidyService } from 'src/app/services/tidy.service';
 
 @Component({
   selector: 'app-read-all',
   templateUrl: './read-all.component.html',
-  styleUrls: ['./read-all.component.css']
+  styleUrls: ['./read-all.component.scss']
 })
 export class ReadAllComponent implements OnInit {
 
-  list: tidy[] = [
-    {
-      titulo: "teste",
-      dataFinalizar: new Date,
-      finalizado: false
-    },
-    {
-      titulo: 'teste',
-      dataFinalizar: new Date,
-      finalizado: false
-    }
-  ]
+  closed = 0;
 
-  constructor() { }
+  list: tidy[] = [];
+  listaFinalizados: tidy[] = [];
+
+  constructor(private service: TidyService) { }
 
   ngOnInit(): void {
+  }
+
+  findAll(): void{
+    this.service.findAll().subscribe((resposta) => {
+      resposta.forEach(tidy =>{
+        if(tidy.finalizado){
+          this.listaFinalizados.push(tidy);
+        }else{
+          this.list.push(tidy);
+        }
+      })
+      this.closed = this.listaFinalizados.length;
+    })
+  }
+
+  delete(id: any): void{
+      this.service.delete(id).subscribe((resposta) =>{
+        if(resposta == null){
+          this.service.message('Tarefa excluida com sucesso!');
+        }
+      })
   }
 
 }
