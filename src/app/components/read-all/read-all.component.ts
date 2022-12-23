@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { tidy } from 'src/app/models/tidy';
+import { Tidy } from 'src/app/models/tidy';
+
 import { TidyService } from 'src/app/services/tidy.service';
 
 @Component({
@@ -11,8 +12,8 @@ export class ReadAllComponent implements OnInit {
 
   closed = 0;
 
-  list: tidy[] = [];
-  listaFinalizados: tidy[] = [];
+  list: Tidy[] = [];
+  listaFinalizados: Tidy[] = [];
 
   constructor(private service: TidyService) { }
 
@@ -36,6 +37,7 @@ export class ReadAllComponent implements OnInit {
       this.service.delete(id).subscribe((resposta) =>{
         if(resposta == null){
           this.service.message('Tarefa excluida com sucesso!');
+          this.list = this.list.filter(tidy => tidy.id !== id);
         }
       })
   }

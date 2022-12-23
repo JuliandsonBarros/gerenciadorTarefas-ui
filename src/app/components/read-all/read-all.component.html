@@ -3,7 +3,7 @@
     <div class="badge">
         <button  mat-stroked-button color="primary" matBadge="{{ closed }}">Tarefas concluídas</button>
     </div>
-    <button class="novo-tidy mat-elevation-z8" mat-stroked-button color="primary">Nova Tarefa</button>
+    <button routerLink="create" class="novo-tidy mat-elevation-z8" mat-stroked-button color="primary">Nova Tarefa</button>
 
     <div class="content" *ngFor="let item of list">
         <mat-card class="mat-elevation-z8">

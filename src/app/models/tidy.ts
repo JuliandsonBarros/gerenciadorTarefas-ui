@@ -1,7 +1,7 @@
-export interface tidy{
-    id?: String,
-    titulo: String,
-    descricao: String,
-    dataFinalizar: Date,
-    finalizado: boolean
+export class Tidy{
+    id?: String
+    titulo?: String
+    descricao?: String
+    dataFinalizar: any
+    finalizado?: boolean
 }
